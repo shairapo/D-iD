@@ -13,7 +13,7 @@ import requests
 # headers = {
 #     "accept": "application/json",
 #     "content-type": "multipart/form-data",
-#     "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+#     "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # }
 
 # response = requests.post(url, headers=headers)
@@ -55,7 +55,7 @@ import requests
 # headers = {
 #     "accept": "application/json",
 #     "content-type": "application/json",
-#     "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+#     "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # }
 
 # response = requests.post(url, json=payload, headers=headers)
@@ -73,7 +73,7 @@ import requests
 # url = "https://api.d-id.com/talks/tlk_4UTALzMdL7ofpyWlZmOPg"
 # headers = {
 #     "accept": "application/json",
-#     "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+#     "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # }
 
 # response = requests.get(url, headers=headers)
