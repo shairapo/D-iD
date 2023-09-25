@@ -14,7 +14,7 @@ import requests
 
 # headers = {
 #     "accept": "application/json",
-#     "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+#     "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # }
 
 # response = requests.post(url, files=files, headers=headers)

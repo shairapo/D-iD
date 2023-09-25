@@ -68,17 +68,17 @@ import requests
 #-------------- 3. The following is the GET request, using the URL generated after uploading the picture
 
 
-# # URL is now https://api.d-id.com/talks/the_id_from_the_response_to_the_previous_POST_request
+# URL is now https://api.d-id.com/talks/the_id_from_the_response_to_the_previous_POST_request
 
-# url = "https://api.d-id.com/talks/tlk_4UTALzMdL7ofpyWlZmOPg"
-# headers = {
-#     "accept": "application/json",
-#     "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-# }
+url = "https://api.d-id.com/talks/tlk_KJ4Q2wS5TFTNb_sBFvuOZ"
+headers = {
+    "accept": "application/json",
+    "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+}
 
-# response = requests.get(url, headers=headers)
+response = requests.get(url, headers=headers)
 
-# print(response.text)
+print(response.text)
 
 #-------------- 4. The forth part is playing the video. Pasting the "result url" from the response to the GET request (no.3) downloads the video locally.
 #so there needs to be a way to automatically download the video and play it from a folder I guess?

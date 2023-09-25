@@ -7,10 +7,10 @@ import requests
 def make_vid(id):
     # # URL is now https://api.d-id.com/talks/the_id_from_the_response_to_the_previous_POST_request
 
-    url = "https://api.d-id.com/talks/id"
+    #url = "https://api.d-id.com/talks/"+id
     headers = {
         "accept": "application/json",
-        "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
     }
 
     response = requests.get(url, headers=headers)
@@ -73,7 +73,7 @@ payload = {
     
     "webhook": "https://host.domain.tld/to/webhook",
 
-    "source_url": "s3://d-id-images-prod/google-oauth2|104050255703233554578/img_0pqcw5GmSvE_ur5omu2fs/shai-rapoport.jpeg"
+    "source_url": "s3://d-id-images-prod/google-oauth2|104050255703233554578/img_sgDO5_RMnPTtJ096dNNLG/shai-rapoport.jpeg"
 
 }
 
@@ -81,13 +81,13 @@ payload = {
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
 }
 
 response = requests.post(url, json=payload, headers=headers)
 # print(response.text)
 
-if response.status_code==200:
+if response.status_code==201:
     data=response.json()
     print (data["id"])
     make_vid(data["id"])
