@@ -5,8 +5,6 @@ import cv2
 from PIL import Image
 import os
 
-# xxxxxtest
-
 def capture_and_save_image():
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
@@ -25,13 +23,13 @@ def capture_and_save_image():
             print("Error: Failed to capture an image.")
             break
 
-        small_frame = cv2.resize(frame, (640, 480))
+        small_frame = cv2.resize(frame, (720, 480))
         cv2.imshow("Press 'p' to take a photo", small_frame)
 
         key = cv2.waitKey(1)
 
         if key == ord('p' or 'P'):
-            small_frame = cv2.resize(frame, (640, 480))
+            small_frame = cv2.resize(frame, (720, 480))
             cv2.imwrite(image_path, small_frame)
             print("Image captured and saved as 'image.jpeg'.")
             break
@@ -143,8 +141,8 @@ def post_requests(text, image_url):
         string = data["id"]
 
         # Wait for the image uploading to the platform
-        time.sleep(20)
-        download_video( get_requests(string), save_path )
+        time.sleep(5)
+        download_video( get_requests(string), save_path,  )
     else:
         print("id request failed")
 
