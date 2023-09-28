@@ -7,7 +7,21 @@ import os
 
 # xxxxxtest
 
+
+global video_name
 video_name=0
+
+voices=["en-US-DavisNeural", "en-US-JennyNeural"]
+texts= ["We didn't reach our steps goal for today, please go on walking",
+        "Congratulations!!! We can rest now. Let's rest on the green spot",
+        "Our blood pressure is soaring; why not meditate on the blue area in the corner?",
+        "We are doing great! And our bank balance is fantastic, but unfortunately, our screen time is high above the average; please stop looking at the screens now.",
+        "Please don't stand still; it's no good for digestion ",
+        "Memories special for us are on the screen now",
+        "It's our best 30-second walk! Congratulations!!!",
+        "A daily hug is a prescription for good vibes. Today, we missed that embrace. Let's be kind to ourselves with a self-hug.",
+        "Congratulations!!! It's our best hug; let's share it with a friend. "]
+
 
 def capture_and_save_image():
     cap = cv2.VideoCapture(0)
@@ -60,7 +74,7 @@ def upload_image():
 
     # Extract and print the S3 URL
     s3_url = response_data.get("url")
-    print(s3_url)
+    print("image url is:  " + s3_url)
 
     return s3_url
 
@@ -74,31 +88,34 @@ def get_requests(string):
     }
 
     response = requests.get(url, headers=headers)
-    print(response.text)
+    # print(response.text)
 
     if response.status_code == 200:
         data = response.json()
         if data["status"] == "done":
             result_url = data["result_url"]
-            print(result_url)
+            print("video url is:  " + result_url)
+            
     else:
         print("get_requests failed")
     
     return result_url
 
 
-def download_video(url, save_path):
+def download_video(url):
         
     response = requests.get(url)
     if response.status_code == 200:
+        file_path = os.path.expanduser("C:/Users/shai_/Desktop/github_Desktop/D-iD/videos-shai")
+        save_path = os.path.join(file_path, str(video_name)+ ".mp4")
         with open(save_path, 'wb') as file:
             file.write(response.content)
             print(f"Video downloaded and saved as {save_path}")
+            
     else:
         print(f"Failed to download video. Status code: {response.status_code}")
 
-file_path = os.path.expanduser("C:/Users/shai_/Desktop/github_Desktop/D-iD/videos-shai")
-save_path = os.path.join(file_path, "0.mp4")
+
 
 
 def post_requests(text, image_url):
@@ -136,16 +153,16 @@ def post_requests(text, image_url):
     }
 
     response = requests.post(url, json=payload, headers=headers)
-    print(response.text)
+    # print(response.text)
 
     if response.status_code == 201:
         data = response.json()
-        print (data["id"])
+        # print (data["id"])
         string = data["id"]
 
         # Wait for the image uploading to the platform
-        time.sleep(5)
-        download_video( get_requests(string), save_path )
+        time.sleep(20)
+        download_video( get_requests(string) )
     else:
         print("id request failed")
 
@@ -157,5 +174,13 @@ image_path = capture_and_save_image()
 # Upload the image and get the image URL
 image_url = upload_image()
 
-# Perform the POST request with the image URL
-post_requests("Hello", image_url)
+# # Perform the POST request with the image URL
+# post_requests("Hello", image_url)
+
+
+for x in range(2):
+    post_requests("Hello", image_url)
+    video_name+=1
+    print("next video will be named:  ", video_name)
+    time.sleep(10)
+
