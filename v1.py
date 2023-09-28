@@ -70,10 +70,10 @@ import requests
 
 # URL is now https://api.d-id.com/talks/the_id_from_the_response_to_the_previous_POST_request
 
-url = "https://api.d-id.com/talks/tlk_KJ4Q2wS5TFTNb_sBFvuOZ"
+url = "https://api.d-id.com/talks/tlk_4UTALzMdL7ofpyWlZmOPg"
 headers = {
     "accept": "application/json",
-    "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
+    "authorization": "Basic xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 response = requests.get(url, headers=headers)
