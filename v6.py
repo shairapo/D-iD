@@ -5,6 +5,7 @@ import cv2
 from PIL import Image
 import os
 
+# xxxxxtest
 
 def capture_and_save_image():
     cap = cv2.VideoCapture(0)
