@@ -1,3 +1,5 @@
+# play a video, no sound, in a specific position on screen
+
 import cv2
 
 # Open a video file or capture from a camera

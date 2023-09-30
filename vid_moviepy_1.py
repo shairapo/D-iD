@@ -1,3 +1,5 @@
+# the problem here is that moviepy can't be allocated to a display, seems to not have this feature 
+
 from moviepy.editor import VideoFileClip
 from screeninfo import get_monitors
 
@@ -34,7 +36,7 @@ if __name__ == "__main__":
                 target_display = displays[display_index]
 
                 # Create a window with the chosen display resolution
-                video_clip.preview(fps=30, screen=display_index)  # Adjust the fps as needed
+                video_clip.preview(fps=30)  # Adjust the fps as needed
 
             except Exception as e:
                 print(f"Error: {e}")
