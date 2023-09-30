@@ -8,11 +8,14 @@ if not cap.isOpened():
     print("Error: Could not open video file.")
     exit()
 
-# Create a window to display the video
-cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
+# Get the screen's width and height
+screen_width = int(cap.get(3))
+screen_height = int(cap.get(4))
 
-# Move the window to the desired position
-cv2.moveWindow("Video", 50, 0)
+# Create a window to display the video
+cv2.namedWindow("Video", cv2.WND_PROP_FULLSCREEN)
+cv2.moveWindow("Video", 1900, 0)
+cv2.setWindowProperty("Video", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 while True:
     # Read a frame from the video
@@ -21,6 +24,9 @@ while True:
     # Check if the video has ended
     if not ret:
         break
+
+    # Resize the frame to match the screen resolution
+    frame = cv2.resize(frame, (screen_width, screen_height))
 
     # Display the current frame
     cv2.imshow("Video", frame)
