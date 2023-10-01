@@ -3,7 +3,7 @@
 import cv2
 
 # Open a video file or capture from a camera
-cap = cv2.VideoCapture("videos-shai/1.mp4")  # Replace "your-video.mp4" with your video file path
+cap = cv2.VideoCapture("small_anim.mp4")  # Replace "your-video.mp4" with your video file path
 
 # Check if the video file was opened successfully
 if not cap.isOpened():
@@ -14,7 +14,7 @@ if not cap.isOpened():
 cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
 
 # Move the window to the desired position
-cv2.moveWindow("Video", 50, 0)
+cv2.moveWindow("Video", 1920, 0)
 
 while True:
     # Read a frame from the video
