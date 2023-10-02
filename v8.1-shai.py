@@ -18,15 +18,15 @@ global video_name, voices, texts, textIndex
 video_name=0
 
 voices=["en-US-DavisNeural", "en-US-JennyNeural"]
-texts= ["We didn't reach our steps goal for today, please go on walking",
-        "Congratulations!!! We can rest now. Let's rest on the green spot",
-        "Our blood pressure is soaring; why not meditate on the blue area in the corner?",
-        "We are doing great! And our bank balance is fantastic, but unfortunately, our screen time is high above the average; please stop looking at the screens now.",
-        "Please don't stand still; it's no good for digestion ",
-        "Memories special for us are on the screen now",
-        "It's our best 30-second walk! Congratulations!!!",
-        "A daily hug is a prescription for good vibes. Today, we missed that embrace. Let's be kind to ourselves with a self-hug.",
-        "Congratulations!!! It's our best hug; let's share it with a friend. "]
+texts= ["none 1",
+        "none 2",
+        "slow 1",
+        "slow 2",
+        "slow 3",
+        "medium 1",
+        "medium 2",
+        "fast 1",
+        "fast 2"]
 
 
 def capture_and_save_image():
@@ -262,7 +262,7 @@ image_url = upload_image()
 
 for x in range(9):
     # comment the next line to debug code without generating videos again
-    # post_requests(texts[video_name], image_url)
+    post_requests(texts[video_name], image_url)
     video_name+=1
     print("next video will be named:  ", video_name)
 
