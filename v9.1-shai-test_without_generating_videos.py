@@ -69,8 +69,8 @@ def play_vids(d_id_vid):
     audio_thread.start()
 
     # Get the screen's width and height
-    screen_width = 600  # Set to your screen's width
-    screen_height = 1024  # Set to your screen's height
+    screen_width = 1080  # Set to your screen's width
+    screen_height = 1920  # Set to your screen's height
 
     # Calculate the position for the 'shai' window to be full screen
     cv2.resizeWindow('shai', screen_width, screen_height)

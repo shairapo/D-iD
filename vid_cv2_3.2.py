@@ -49,11 +49,12 @@ audio_thread.daemon = True
 audio_thread.start()
 
 # Get the screen's width and height
-screen_width = 600  # Set to your screen's width
-screen_height = 1024  # Set to your screen's height
+screen_width = 1080  # Set to your screen's width
+screen_height = 1920  # Set to your screen's height
 
 # Calculate the position for the 'shai' window to be full screen
-cv2.moveWindow('shai', 1920, 0)
+cv2.moveWindow('shai', 1921, 0)
+cv2.moveWindow('underwater', 300, 200)
 cv2.resizeWindow('shai', screen_width, screen_height)
 
 while True:
