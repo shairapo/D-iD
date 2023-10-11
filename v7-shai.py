@@ -179,12 +179,12 @@ image_url = upload_image()
 # post_requests("Hello", image_url)
 
 
-for x in range(2):
+for x in range(9):
     post_requests(texts[video_name], image_url)
     video_name+=1
     print("next video will be named:  ", video_name)
 
 
-if(video_name==11):
+if(video_name==9):
     print("all videos have been generated successfully")
 
