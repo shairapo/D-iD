@@ -5,40 +5,6 @@ import cv2
 from PIL import Image
 import os
 
-def capture_and_save_image():
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        print("Error: Webcam not found or could not be opened.")
-        return
-    
-    image_path = "/Users/zhichengu/Documents/GitHub/D-iD/image.jpeg"
-
-     # Check if the original image exists and delete it
-    if os.path.exists(image_path):
-        os.remove(image_path)
-
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("Error: Failed to capture an image.")
-            break
-
-        small_frame = cv2.resize(frame, (720, 480))
-        cv2.imshow("Press 'p' to take a photo", small_frame)
-
-        key = cv2.waitKey(1)
-
-        if key == ord('p' or 'P'):
-            small_frame = cv2.resize(frame, (720, 480))
-            cv2.imwrite(image_path, small_frame)
-            print("Image captured and saved as 'image.jpeg'.")
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    return image_path
-
-
 def download_video(url, save_path):
         
     response = requests.get(url)
@@ -49,7 +15,7 @@ def download_video(url, save_path):
     else:
         print(f"Failed to download video. Status code: {response.status_code}")
 
-file_path = os.path.expanduser("/Users/zhichengu//Desktop")
+file_path = os.path.expanduser("/Users/zhichengu/Desktop")
 save_path = os.path.join(file_path, "0.mp4")
 
 
@@ -83,7 +49,6 @@ def upload_image():
 
     headers = {
         "accept": "application/json",
-        # "content-type": "multipart/form-data",
         "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
     }
 
@@ -149,10 +114,10 @@ def post_requests(text, image_url):
 
 
 # At the beginning, capture an image and get its path
-image_path = capture_and_save_image()
+image_path = "/Users/zhichengu/Documents/GitHub/D-iD/image.jpeg"
 
 # Upload the image and get the image URL
 image_url = upload_image()
 
 # Perform the POST request with the image URL
-post_requests("Hello", image_url)
+post_requests("Hello nice to meet you!", image_url)
