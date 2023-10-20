@@ -13,7 +13,6 @@ def gender_generation(address, *args):
 def gender_handler(address, *args):
     gender = args[0]
     # print(f"Received OSC message for {address}: " + f"{gender}")
-    # return gender
 
 def style_handler(address, *args):
     style = args[0]
@@ -26,6 +25,3 @@ dispatcher.map("/style",  style_handler)
 
 server = osc_server.ThreadingOSCUDPServer((address, port), dispatcher)
 server.serve_forever()
-
-# result = gender_handler("/gender", 0)
-# print("Received number:", result)

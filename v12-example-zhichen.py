@@ -5,6 +5,56 @@ import cv2
 from PIL import Image
 import os
 
+from pythonosc import udp_client
+from pythonosc.dispatcher import Dispatcher
+from pythonosc import osc_server
+
+address = "192.168.1.100"
+port = 8888
+
+# **************************************** #
+# **************************************** #
+def gender_generation(address, *args):
+    generation = args[0]
+    if generation == 1 :
+        print(f"Received OSC message for {address}: " + f"{generation}")
+
+def gender_handler(address, *args):
+    gender = args[0]
+    # print(f"Received OSC message for {address}: " + f"{gender}")
+
+def style_handler(address, *args):
+    style = args[0]
+    # print(f"Received OSC message for {address}: " + f"{style}")
+
+def voice_gender(gender):
+    if(gender == 1): 
+        return "en-US-GuyNeural"
+    if(gender == 2): 
+        return "en-US-BlueNeural"
+    if(gender == 3): 
+        return "en-US-AriaNeural"
+    
+def voice_style(style):
+    if(style == 1): 
+        return "Friendly"
+    if(style == 2): 
+        return "Sad"
+    if(style == 3): 
+        return "Cheerful"
+    if(style == 4): 
+        return "Whispering"
+    if(style == 5): 
+        return "Shouting"
+    
+# **************************************** #
+# **************************************** #
+
+def save_image():
+    
+    image_path = "/Users/zhichengu/Documents/GitHub/D-iD/image.jpeg"
+    return image_path
+
 def download_video(url, save_path):
         
     response = requests.get(url)
@@ -62,22 +112,23 @@ def upload_image():
 
     return s3_url
 
-
+# **************************************** #
+# **************************************** #
 def post_requests(text, image_url):
 
     url = "https://api.d-id.com/talks"
 
-    payload = {
+    payload = { 
         "script": {
             "type": "text",
             "input": text,
             "subtitles": "false",
             "provider": {
                 "type": "microsoft",
-                "voice_id": "en-US-DavisNeural",
-                # "voice_config": {
-                #     "style": "Whispering"
-                # }
+                "voice_id": voice_gender(3),
+                "voice_config": {
+                    "style": voice_style(5)
+                }
             },
             "ssml": "false"
         },
@@ -112,12 +163,22 @@ def post_requests(text, image_url):
         print("id request failed")
 
 
+# **************************************** #
+# **************************************** #
 
 # At the beginning, capture an image and get its path
-image_path = "/Users/zhichengu/Documents/GitHub/D-iD/image.jpeg"
+image_path = save_image()
 
 # Upload the image and get the image URL
 image_url = upload_image()
 
 # Perform the POST request with the image URL
 post_requests("Hello nice to meet you!", image_url)
+
+dispatcher = Dispatcher()
+dispatcher.map("/generation", gender_generation)
+dispatcher.map("/gender", gender_handler)
+dispatcher.map("/style",  style_handler)
+
+server = osc_server.ThreadingOSCUDPServer((address, port), dispatcher)
+server.serve_forever()
