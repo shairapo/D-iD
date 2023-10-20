@@ -44,13 +44,13 @@ void ofApp::setup() {
     
     resetButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 30, 60, 30);
     
+    webcamButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 75, 60, 60);
+    
+    geneButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 150, 93, 60);
     
     videoGrabber.setDesiredFrameRate(30);
     videoGrabber.initGrabber(camWidth, camHeight);
-    
-    // Load an initial image for the captured frame
     capturedFrame.allocate(camWidth, camHeight, OF_IMAGE_COLOR);
-    webcamButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 75, 60, 60);
     
 }
 
@@ -71,7 +71,20 @@ void ofApp::update() {
         
         // Reset the captureFrame flag to false
         captureFrame = false;
+        webcamButtonEnabled = false;
+        geneButtonEnabled = true;
     }
+    
+    if(geneButtonEnabled == false) geneDataSend = 0;
+    
+    if(geneDataSend) {
+        geneButtonEnabled = false;
+    }
+    
+    ofxOscMessage m;
+    m.setAddress("/generation");
+    m.addIntArg(geneDataSend);
+    sender.sendMessage(m, false);
 }
 
 void ofApp::draw() {
@@ -160,6 +173,21 @@ void ofApp::draw() {
         ofSetColor(150); // Change the text color to a lighter gray
         ofDrawBitmapString("Webcam", webcamButton.getX() + 7, webcamButton.getY() + 32);
     }
+    
+    // Create the "Generation" button
+    if (geneButtonEnabled) {
+        ofColor geneButtonColor(0, 0, 255);
+        ofSetColor(geneButtonColor);
+        ofDrawRectRounded(geneButton, 3);
+        ofSetColor(255);
+        ofDrawBitmapString("Generation", geneButton.getX() + 7, geneButton.getY() + 32);
+    } else {
+        // If the "Generation" button is not enabled, you can display it in a disabled state
+        //        ofSetColor(100); // Change the color to gray or another disabled color
+        //        ofDrawRectRounded(geneButton, 3);
+        //        ofSetColor(150); // Change the text color to a lighter gray
+        //        ofDrawBitmapString("Generation", geneButton.getX() + 7, geneButton.getY() + 32);
+    }
 }
 
 
@@ -172,10 +200,14 @@ void ofApp::mousePressed(int x, int y, int button) {
         for (int i = 0; i < buttons.size(); i++) {
             buttonClicked[i] = false;
             webcamButtonEnabled = false;
+            geneButtonEnabled = false;
+            geneDataSend = false;
         }
         for (int i = 0; i < smallButtons.size(); i++) {
             smallButtonClicked[i] = false;
             webcamButtonEnabled = false;
+            geneButtonEnabled = false;
+            geneDataSend = false;
         }
         
         resetButtonClicked = true;
@@ -190,10 +222,16 @@ void ofApp::mousePressed(int x, int y, int button) {
                 // If the clicked button is already red, turn it green
                 if (buttonClicked[i]) {
                     buttonClicked[i] = false;
+                    webcamButtonEnabled = false;
+                    geneButtonEnabled = false;
+                    geneDataSend = false;
                 } else {
                     // Turn the clicked button red and turn all other red buttons green
                     for (int j = 0; j < buttons.size(); j++) {
                         buttonClicked[j] = false;
+                        webcamButtonEnabled = false;
+                        geneButtonEnabled = false;
+                        geneDataSend = false;
                     }
                     buttonClicked[i] = true;
                 }
@@ -210,10 +248,16 @@ void ofApp::mousePressed(int x, int y, int button) {
                 // If the clicked button is already red, turn it green
                 if (smallButtonClicked[i]) {
                     smallButtonClicked[i] = false;
+                    webcamButtonEnabled = false;
+                    geneButtonEnabled = false;
+                    geneDataSend = false;
                 } else {
                     // Turn the clicked button red and turn all other red buttons green
                     for (int j = 0; j < smallButtons.size(); j++) {
                         smallButtonClicked[j] = false;
+                        webcamButtonEnabled = false;
+                        geneButtonEnabled = false;
+                        geneDataSend = false;
                     }
                     smallButtonClicked[i] = true;
                 }
@@ -260,6 +304,10 @@ void ofApp::mousePressed(int x, int y, int button) {
     // Check if the "Webcam" button is clicked and if it's enabled
     if (webcamButton.inside(x, y) && webcamButtonEnabled) {
         captureFrame = true;
+    }
+    
+    if (geneButton.inside(x, y) && geneButtonEnabled) {
+        geneDataSend = true;
     }
 }
 

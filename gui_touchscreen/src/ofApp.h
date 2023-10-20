@@ -35,6 +35,10 @@ public:
     
     ofRectangle webcamButton;
     bool webcamButtonEnabled;
+    
+    ofRectangle geneButton;
+    bool geneButtonEnabled;
+    bool geneDataSend = false;
 
     void keyPressed(int key);
     
