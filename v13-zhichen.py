@@ -14,7 +14,7 @@ from pythonosc import osc_server
 
 import subprocess
 
-address = "192.168.1.100"
+address = "192.168.1.72"
 port    = 8888
 
 vidDone = None
@@ -44,7 +44,7 @@ def voice_style(style):
 # **************************************** #
 def save_image():
     
-    image_path = "/Users/zhichengu/Documents/GitHub/D-iD/image.jpeg"
+    image_path = "C:/Users/InbalAmram/Desktop/image.jpeg"
     return image_path
 
 def download_video(url, save_path, vidDone):
@@ -57,12 +57,12 @@ def download_video(url, save_path, vidDone):
             
             vidDone += 1
             print(f"Video Done {vidDone} ")
-            runOpenframeworks(vidDone)
+            # runOpenframeworks(vidDone)
 
     else:
         print(f"Failed to download video. Status code: {response.status_code}")
 
-file_path = os.path.expanduser("/Users/zhichengu/Desktop")
+file_path = os.path.expanduser("C:/Users/InbalAmram/Desktop/Video folder/")
 
 save_path_0 = os.path.join(file_path, "0.mp4")
 save_path_1 = os.path.join(file_path, "1.mp4")
@@ -170,52 +170,6 @@ def post_requests_mAndf(text, image_url, gender, style, save_path, vidDone):
         print("id request failed")
 
 
-def post_requests_noneB(text, image_url, gender, save_path, vidDone):
-
-    url = "https://api.d-id.com/talks"
-
-    payload = { 
-        "script": {
-            "type": "text",
-            "input": text,
-            "subtitles": "false",
-            "provider": {
-                "type": "microsoft",
-                "voice_id": voice_gender(gender),
-            },
-            "ssml": "false"
-        },
-        "config": {
-            "fluent": "false",
-            "pad_audio": "0.0"
-        },
-        
-        "webhook": "https://host.domain.tld/to/webhook",
-        "source_url": image_url
-
-    }
-
-    headers = {
-        "accept": "application/json",
-        "content-type": "application/json",
-        "authorization": "Basic WjNwak1UTTBOekkxTWpjM056bEFaMjFoYVd3dVkyOXQ6c3gybnJjcnlsZTJSUzU3SXdTSXVM"
-    }
-
-    response = requests.post(url, json=payload, headers=headers)
-    # print(response.text)
-
-    if response.status_code == 201:
-        data = response.json()
-        # print (data["id"])
-        string = data["id"]
-
-        # Wait for the image uploading to the platform
-        time.sleep(5)
-        download_video( get_requests(string), save_path, vidDone)
-    else:
-        print("id request failed")
-
-
 # **************************************** #
 # **************************************** #
 def gender_generation(address, *args):
@@ -233,14 +187,6 @@ def gender_generation(address, *args):
         image_url = upload_image()
         post_requests_mAndf("Hello nice to meet you!", image_url, gender, style, save_path_0, vidDone)
         # post_requests_mAndf("Who are you",             image_url, gender, style, save_path_1, vidDone)
-        
-    
-    # if generation == 1  and gender == 3:
-    #     None       
-        # can not be used caz lack of the library   
-
-        # image_url = upload_image()
-        # post_requests_noneB("Hello nice to meet you!", image_url, gender, save_path_0, vidDone) 
 
 
 def runOpenframeworks(vidDone):
