@@ -1,6 +1,7 @@
 from pythonosc import udp_client
 from pythonosc.dispatcher import Dispatcher
 from pythonosc import osc_server
+import argparse
 
 address = "192.168.1.100"
 port = 8888
@@ -11,6 +12,7 @@ def gender_generation(address, *args):
         print(f"Received OSC message for {address}: " + f"{generation}")
 
 def gender_handler(address, *args):
+    global gender
     gender = args[0]
     # print(f"Received OSC message for {address}: " + f"{gender}")
 
@@ -20,8 +22,12 @@ def style_handler(address, *args):
 
 dispatcher = Dispatcher()
 dispatcher.map("/generation", gender_generation)
-dispatcher.map("/gender", gender_handler)
-dispatcher.map("/style",  style_handler)
+dispatcher.map("/gender",     gender_handler)
+dispatcher.map("/style",      style_handler)
 
 server = osc_server.ThreadingOSCUDPServer((address, port), dispatcher)
-server.serve_forever()
+
+# gender_handler(address, argparse.ArgumentParser().parse_args())
+# print(dispatcher)
+
+# server.serve_forever()

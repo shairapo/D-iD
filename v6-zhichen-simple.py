@@ -81,8 +81,8 @@ def post_requests(text, image_url):
             "input": text,
             "subtitles": "false",
             "provider": {
-                "type": "microsoft",
-                "voice_id": "en-US-DavisNeural",
+                "type": "amazon",
+                "voice_id": "Amy",
                 # "voice_config": {
                 #     "style": "Whispering"
                 # }
@@ -128,4 +128,4 @@ image_path = capture_and_save_image()
 image_url = upload_image()
 
 # Perform the POST request with the image URL
-post_requests("Hello nice to meet you!", image_url)
+post_requests("hello", image_url)

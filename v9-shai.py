@@ -285,7 +285,7 @@ def play_vids(d_id_vid):
 #     print("next video will be named:  ", video_name)
 
 
-if(video_name==0):
+if(video_name == 0):
     print("all videos have been generated successfully, starting the listening to messages")
 
     playback_finished_event = threading.Event()
@@ -297,25 +297,25 @@ if(video_name==0):
                 # print(f"received: {address}: {args}")
                 # print(f"received: {args}")
 
-                if (received_value==0):
+                if (received_value == 0):
                     index = random.randint(0, 1)
                     d_id_vid='videos-shai/' + str(none[index]) + '.mp4'
                     print("playing video number: "+str(none[index]))
                     play_vids(d_id_vid)
                     playback_finished_event.wait()
-                elif (received_value==1):
+                elif (received_value == 1):
                     index = random.randint(0, 2)
                     d_id_vid='videos-shai/' + str(slow[index]) + '.mp4'
                     print("playing video number: "+str(slow[index]))
                     play_vids(d_id_vid)
                     playback_finished_event.wait()
-                elif (received_value==2):
+                elif (received_value == 2):
                     index = random.randint(0, 1)
                     d_id_vid='videos-shai/' + str(medium[index]) + '.mp4'
                     print("playing video number: "+str(medium[index]))
                     play_vids(d_id_vid)
                     playback_finished_event.wait()
-                elif (received_value==3):
+                elif (received_value == 3):
                     index = random.randint(0, 2)
                     d_id_vid='videos-shai/' + str(fast[index]) + '.mp4'
                     print("playing video number: "+str(fast[index]))
