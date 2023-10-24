@@ -1,3 +1,6 @@
+#the file path need to be changed in line 44, 65, 247
+
+
 import requests
 import json
 import time
@@ -233,8 +236,7 @@ def gender_generation(address, *args):
         
     
     # if generation == 1  and gender == 3:
-    #     None
-        
+    #     None       
         # can not be used caz lack of the library   
 
         # image_url = upload_image()
