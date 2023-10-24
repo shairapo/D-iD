@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    receiver.setup(PORT);
+    
     string filePath_0 = "/Users/zhichengu/Desktop/0.mp4";
     if (videoPlayer0.load(filePath_0)) {
 //        videoPlayer0.play();
@@ -53,6 +55,7 @@ void ofApp::setup(){
 //        videoPlayer9.play();
     }
 
+    number = 10;
 }
 
 //--------------------------------------------------------------
@@ -73,7 +76,56 @@ void ofApp::update(){
 void ofApp::draw(){
     ofBackground(0);
     
-    videoPlaying(videoPlayer3);
+    while(receiver.hasWaitingMessages()){
+        ofxOscMessage m;
+        receiver.getNextMessage(m);
+
+        if(m.getAddress() == "/data"){
+            number = m.getArgAsInt(0);
+        }
+    }
+    
+    if(number == 0) videoPlaying(videoPlayer0), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 1) videoPlaying(videoPlayer1), videoStop(videoPlayer0, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 2) videoPlaying(videoPlayer2), videoStop(videoPlayer1, videoPlayer0, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 3) videoPlaying(videoPlayer3), videoStop(videoPlayer1, videoPlayer2, videoPlayer0, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 4) videoPlaying(videoPlayer4), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer0,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 5) videoPlaying(videoPlayer5), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer0, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 6) videoPlaying(videoPlayer6), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer0, videoPlayer7, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 7) videoPlaying(videoPlayer7), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer0, videoPlayer8,
+                                                          videoPlayer9);
+    
+    if(number == 8) videoPlaying(videoPlayer8), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer0,
+                                                          videoPlayer9);
+    
+    if(number == 9) videoPlaying(videoPlayer9), videoStop(videoPlayer1, videoPlayer2, videoPlayer3, videoPlayer4,
+                                                          videoPlayer5, videoPlayer6, videoPlayer7, videoPlayer8,
+                                                          videoPlayer0);
+    else{
+    }
 }
 
 //--------------------------------------------------------------
@@ -94,4 +146,20 @@ void ofApp::videoPlaying(ofVideoPlayer videoPlayer){
     ofSetColor(255);
     videoPlayer.draw(-ofGetWidth()/4 - 60, -ofGetHeight()/2 - modifyY, 1080, 1920);
     ofPopMatrix();
+}
+
+void ofApp::videoStop(ofVideoPlayer videoPlayer1, ofVideoPlayer videoPlayer2, ofVideoPlayer videoPlayer3,
+                      ofVideoPlayer videoPlayer4, ofVideoPlayer videoPlayer5, ofVideoPlayer videoPlayer6,
+                      ofVideoPlayer videoPlayer7, ofVideoPlayer videoPlayer8, ofVideoPlayer videoPlayer9){
+    
+    videoPlayer1.stop();
+    videoPlayer2.stop();
+    videoPlayer3.stop();
+    videoPlayer4.stop();
+    videoPlayer5.stop();
+    videoPlayer6.stop();
+    videoPlayer7.stop();
+    videoPlayer8.stop();
+    videoPlayer9.stop();
+    
 }
