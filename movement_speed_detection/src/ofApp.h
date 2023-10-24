@@ -24,7 +24,7 @@ public:
 	ofxCvFloatImage bufferFloat;	//Buffer image
 
 	float sumVal;
-	int frameCount;
+	int frameCount, index;
 
 	ofxOscSender sender;
 	

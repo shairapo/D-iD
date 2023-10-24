@@ -1,77 +1,68 @@
 import cv2
-import pygame
 import threading
-from moviepy.editor import VideoFileClip
-
-
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_server import BlockingOSCUDPServer
 
-def default_handler(address, *args):
-    if args:
-            received_value = args[0]
-            # print(f"received: {received_value}")
-            # print(f"received: {address}: {args}")
-            # print(f"received: {args}")
-            if (received_value==1):
-                  print('video 1 is playing')
-                  animation_path='videos-shai/' + str(received_value) + '.mp4'
-                  play_vid(animation_path)
-            # elif (received_value==2):
-            #       print('video 2 is playing')
-        
-
-dispatcher = Dispatcher()
-dispatcher.set_default_handler(default_handler)
-
-server = BlockingOSCUDPServer(("192.168.1.65", 1337), dispatcher)
-server.serve_forever()
+# Define a flag to indicate whether the video is currently playing
+video_playing = False
 
 def play_vid(animation_path):
-    
-    # cv2 windows setup ------------------------------------------------------
+    global video_playing
 
-    # Open a video file or capture from a camera
+    # Set the flag to True to indicate that video playback has started
+    video_playing = True
+
+    # Open a video file
     cap = cv2.VideoCapture(animation_path)
 
     # Check if the video file was opened successfully
     if not cap.isOpened():
-        print("Error: Could not open video files.")
-        exit()
+        print("Error: Could not open video file.")
+        video_playing = False  # Set the flag to False
+        return
 
     # Create a window to display the video
     cv2.namedWindow('booking', cv2.WINDOW_NORMAL)
-    # cv2.setWindowProperty('booking', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-
-    # Get the screen's width and height
-    screen_width = 600  # Set to your screen's width
-    screen_height = 1024  # Set to your screen's height
-
-    # Calculate the position for the 'shai' window to be full screen
-    # cv2.moveWindow('shai', 1921, 0)
-    # cv2.resizeWindow('booking', screen_width, screen_height)
 
     while True:
-        # Read frames from both video files
+        # Read frames from the video file
         ret, frame = cap.read()
 
         # Check if frames were read successfully
         if not ret:
-            print("Error reading frames.")
+            print("Video playback finished.")
             break
-
-        # Resize the frame to match the screen resolution
-        # frame = cv2.resize(frame, (screen_width, screen_height))
 
         # Display the current frame
         cv2.imshow('booking', frame)
 
-
         # Check for user input to exit
-        if cv2.waitKey() & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    # Release the video capture object and close all windows
+    # Release the video capture object and close the window
     cap.release()
     cv2.destroyAllWindows()
+
+    # Set the flag to False when video playback is finished
+    video_playing = False
+
+def default_handler(address, *args):
+    global video_playing
+
+    if args:
+        received_value = args[0]
+
+        if received_value == 1:
+            # Check if video is already playing
+            if not video_playing:
+                print('Video 1 is playing')
+                animation_path = 'videos-shai/' + str(received_value) + '.mp4'
+                # Create and start a new thread to play the video
+                threading.Thread(target=play_vid, args=(animation_path,)).start()
+
+dispatcher = Dispatcher()
+dispatcher.map("/mini", default_handler)
+
+server = BlockingOSCUDPServer(("192.168.1.188", 1337), dispatcher)
+server.serve_forever()

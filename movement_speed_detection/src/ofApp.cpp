@@ -15,7 +15,7 @@ void ofApp::setup() {
 		cout << "Device ID: " << device.id << ", Name: " << device.deviceName << endl;
 	}
 
-	sender.setup("192.168.1.65", 8000);
+	sender.setup("192.168.1.100", 1337);
 
 }
 
@@ -135,34 +135,48 @@ void ofApp::draw() {
 
 			cout << "sumVal:" << sumVal << endl;
 		
-			if (sumVal >= 800 && sumVal <= 4500) {
-				cout << "Slow" << endl;
+			//if (sumVal <100) {
+			//	ofSetBackgroundColor(0, 0, 0);
+			//	tag.setAddress("/tag");
+			//	/*tag.addCharArg('n');*/
+			//	tag.addIntArg(0);
+			//	bundle.addMessage(tag);
+			//}
+			if (sumVal >= 3000 && sumVal <= 14000) {
+				/*cout << "Slow" << endl;*/
 				ofSetBackgroundColor(0, 255, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('S');
+				tag.setAddress("/data");
+				/*tag.addCharArg('S');*/
+				index = ofRandom(3);
+				tag.addIntArg(index);
 				bundle.addMessage(tag);
 
 			}
-			else if (sumVal >= 7000 && sumVal <= 20000) {
-				cout << "Medium" << endl;
-				ofSetBackgroundColor(255, 255, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('M');
-				bundle.addMessage(tag);
-			}
-			else if (sumVal >= 26000) {
-				cout << "Fast" << endl;
+			else if (sumVal >= 30000) {
+				/*cout << "Fast" << endl;*/
 				ofSetBackgroundColor(255, 0, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('H');
+				tag.setAddress("/data");
+				/*tag.addCharArg('H');*/
+				index = ofRandom(3,7);
+				tag.addIntArg(index);
 				bundle.addMessage(tag);
 			}
+			else if (sumVal <= 1400) {
+				/*cout << "None" << endl;*/
+				ofSetBackgroundColor(0, 255, 255);
+				tag.setAddress("/data");
+				/*tag.addCharArg('N');*/
+				index = ofRandom(7, 10);
+				tag.addIntArg(index);
+				bundle.addMessage(tag);
+			}
+
 			else {
-				ofSetBackgroundColor(0, 0, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('n');
-				bundle.addMessage(tag);
+				ofSetBackgroundColor(0);
 			}
+			
+			
+			
 			sender.sendBundle(bundle);
 		}
 
