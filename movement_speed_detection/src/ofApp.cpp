@@ -15,7 +15,8 @@ void ofApp::setup() {
 		cout << "Device ID: " << device.id << ", Name: " << device.deviceName << endl;
 	}
 
-	sender.setup("192.168.1.100", 1337);
+	senderMini.setup("192.168.1.188", 1337);
+	senderHP.setup("192.168.1.72",9999 );
 
 }
 
@@ -124,51 +125,50 @@ void ofApp::draw() {
 		}
 		//cout << "sumVal:" << sumVal << endl;
 
-		if (frameCount > 50) {
+		if (frameCount > 150) {
 			frameCount = 0;
-			ofxOscBundle bundle;
-			ofxOscMessage val;
-			ofxOscMessage tag;
-			val.setAddress("/speed");
-			val.addIntArg(sumVal);
-			bundle.addMessage(val);
+			ofxOscBundle bundleMini;
+			ofxOscMessage tagMini;
 
-			cout << "sumVal:" << sumVal << endl;
+			ofxOscBundle bundleHP;
+			ofxOscMessage tagHP;
+
+			/*cout << "sumVal:" << sumVal << endl;*/
 		
-			//if (sumVal <100) {
-			//	ofSetBackgroundColor(0, 0, 0);
-			//	tag.setAddress("/tag");
-			//	/*tag.addCharArg('n');*/
-			//	tag.addIntArg(0);
-			//	bundle.addMessage(tag);
-			//}
+
 			if (sumVal >= 3000 && sumVal <= 14000) {
-				/*cout << "Slow" << endl;*/
 				ofSetBackgroundColor(0, 255, 0);
-				tag.setAddress("/data");
-				/*tag.addCharArg('S');*/
-				index = ofRandom(3);
-				tag.addIntArg(index);
-				bundle.addMessage(tag);
+				index = ofRandom(3); 
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
 
 			}
 			else if (sumVal >= 30000) {
-				/*cout << "Fast" << endl;*/
 				ofSetBackgroundColor(255, 0, 0);
-				tag.setAddress("/data");
-				/*tag.addCharArg('H');*/
-				index = ofRandom(3,7);
-				tag.addIntArg(index);
-				bundle.addMessage(tag);
+				index = ofRandom(3, 7);
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
 			}
 			else if (sumVal <= 1400) {
-				/*cout << "None" << endl;*/
 				ofSetBackgroundColor(0, 255, 255);
-				tag.setAddress("/data");
-				/*tag.addCharArg('N');*/
 				index = ofRandom(7, 10);
-				tag.addIntArg(index);
-				bundle.addMessage(tag);
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
 			}
 
 			else {
@@ -177,7 +177,8 @@ void ofApp::draw() {
 			
 			
 			
-			sender.sendBundle(bundle);
+			senderMini.sendBundle(bundleMini);
+			senderHP.sendBundle(bundleHP);
 		}
 
 		sumVal = 0;
