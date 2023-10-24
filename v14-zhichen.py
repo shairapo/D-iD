@@ -52,7 +52,7 @@ def download_video(url, save_path, vidDone):
             
             vidDone += 1
             print(f"Video Done {vidDone} ")
-            runOpenframeworks(vidDone)
+            # runOpenframeworks(vidDone)
 
     else:
         print(f"Failed to download video. Status code: {response.status_code}")
@@ -175,18 +175,18 @@ def gender_generation(address, *args):
         vidDone = 0
         print(f"Video Done {vidDone} ")
 
-        subprocess.call(["pkill", "-f", "Gui_playVidDebug.app"])
+        # subprocess.call(["pkill", "-f", "Gui_playVidDebug.app"])
 
         image_url = upload_image()
         post_requests_mAndf("Hello nice to meet you!", image_url, gender, style, save_path_0, vidDone)
         post_requests_mAndf("Who are you? Whats ur name", image_url, gender, style, save_path_1, vidDone)
 
 
-def runOpenframeworks(vidDone):
-    app_path = "/Users/zhichengu/Desktop/Gui_playVidDebug.app"
+# def runOpenframeworks(vidDone):
+#     app_path = "/Users/zhichengu/Desktop/Gui_playVidDebug.app"
 
-    if vidDone == 2:
-        subprocess.Popen(["open", app_path])
+#     if vidDone == 2:
+#         subprocess.Popen(["open", app_path])
 
 # **************************************** #
 # **************************************** #
