@@ -4,36 +4,40 @@ void ofApp::setup() {
     ofSetBackgroundColor(0); // Set the background color to black
     sender.setup(HOST, PORT);
     
-    int buttonWidth = 100;  // Width of each button
-    int buttonHeight = 48;  // Height of each button
-    int buttonGap = 50;     // Gap between buttons
+    int screenWidth = 1920;
+    int screenHeight = 1080;
+    ofSetWindowShape(screenWidth, screenHeight);
+    
+    int buttonWidth = 200;  // Width of each button
+    int buttonHeight = 96;  // Height of each button
+    int buttonGap = 100;     // Gap between buttons
     
     // Create the three large buttons in a horizontal array with a gap between them
-    for (int i = 0; i < 2; i++) {
-        int x = ofGetWidth() / 2 - (buttonWidth * 2 + buttonGap * 1) / 2 + i * (buttonWidth + buttonGap);
+    for (int i = 0; i < 3; i++) {
+        int x = ofGetWidth() / 2 - (buttonWidth * 3 + buttonGap * 2) / 2 + i * (buttonWidth + buttonGap);
         int y = ofGetHeight() / 2 - buttonHeight / 2;
-        ofRectangle buttonRect(x, y + 105, buttonWidth, buttonHeight);
+        ofRectangle buttonRect(x, y + 215, buttonWidth, buttonHeight);
         buttons.push_back(buttonRect);
         buttonClicked.push_back(false);
     }
     
     // Create the five small buttons below the large buttons
-    int smallButtonWidth = 60;  // Width of each small button
-    int smallButtonHeight = 35; // Height of each small button
-    int smallbuttonGap = 80;     // Gap between buttons
+    int smallButtonWidth = 120;  // Width of each small button
+    int smallButtonHeight = 70; // Height of each small button
+    int smallbuttonGap = 160;     // Gap between buttons
     
     for (int i = 0; i < 5; i++) {
         int x = ofGetWidth() / 2 - (smallButtonWidth * 5 + smallbuttonGap * 4) / 2 + i * (smallButtonWidth + smallbuttonGap);
         int y = ofGetHeight() / 2;
-        ofRectangle smallButtonRect(x, y + 105 + 80, smallButtonWidth, smallButtonHeight);
+        ofRectangle smallButtonRect(x, y + 215 + 160, smallButtonWidth, smallButtonHeight);
         smallButtons.push_back(smallButtonRect);
         smallButtonClicked.push_back(false);
     }
     
     // Assign names to large buttons
     buttonNames.push_back("Male");
+    buttonNames.push_back("None-Binary");
     buttonNames.push_back("Female");
-//    buttonNames.push_back("Female");
     
     // Assign names to small buttons
     smallButtonNames.push_back("Friendly");
@@ -42,11 +46,11 @@ void ofApp::setup() {
     smallButtonNames.push_back("Whispering");
     smallButtonNames.push_back("Excited");
     
-    resetButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 30, 60, 30);
+    resetButton.set(80,  ofGetHeight() / 2 - camHeight - 190,  120, 60);
     
-    webcamButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 75, 60, 60);
+    webcamButton.set(80, ofGetHeight() / 2 - camHeight - 190 + 100, 120, 120);
     
-    geneButton.set(20, ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 150, 93, 60);
+    geneButton.set(80,   ofGetHeight() / 2 - camHeight - 190 + 250, 186, 120);
     
     videoGrabber.setDesiredFrameRate(30);
     videoGrabber.initGrabber(camWidth, camHeight);
@@ -102,9 +106,10 @@ void ofApp::draw() {
     
     // Draw the camera feed above the large buttons
     int buttonHeight = 50;
-    int camX = ofGetWidth() / 2 - camWidth / 2;
-    int camY = ofGetHeight() / 2 - buttonHeight / 2 - camHeight + 30;
-    videoGrabber.draw(camX, camY, camWidth, camHeight);
+    
+    int camX = ofGetWidth() / 2 -  camWidth;
+    int camY = ofGetHeight() / 2 - camHeight - buttonHeight - 140;
+    videoGrabber.draw(camX, camY, camWidth * 2, camHeight * 2);
     
     for (int i = 0; i < buttons.size(); i++) {
         if (buttonClicked[i]) {
@@ -128,26 +133,26 @@ void ofApp::draw() {
     for (int i = 0; i < buttons.size(); i++) {
         if (buttonClicked[i]) {
             ofSetColor(255);
-            ofDrawBitmapString("Clicked", buttons[i].getX() + 10, buttons[i].getY() + 70);
+            ofDrawBitmapString("Clicked", buttons[i].getX() + 10, buttons[i].getY() + 140);
             
             bigChoice = i + 1;
         }
         else {
             ofSetColor(255);
-            ofDrawBitmapString(buttonNames[i], buttons[i].getX() + 10, buttons[i].getY() + 70);
+            ofDrawBitmapString(buttonNames[i], buttons[i].getX() + 10, buttons[i].getY() + 140);
         }
     }
     
     for (int i = 0; i < smallButtons.size(); i++) {
         if (smallButtonClicked[i]) {
             ofSetColor(255);
-            ofDrawBitmapString("Clicked", smallButtons[i].getX() + 5, smallButtons[i].getY() + 55);
+            ofDrawBitmapString("Clicked", smallButtons[i].getX() + 5, smallButtons[i].getY() + 110);
             
             smallChoice = i + 1;
         }
         else {
             ofSetColor(255);
-            ofDrawBitmapString(smallButtonNames[i], smallButtons[i].getX() + 5, smallButtons[i].getY() + 55);
+            ofDrawBitmapString(smallButtonNames[i], smallButtons[i].getX() + 5, smallButtons[i].getY() + 110);
         }
     }
     
