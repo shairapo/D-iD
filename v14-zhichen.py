@@ -1,6 +1,3 @@
-#the file path need to be changed in line 44, 65, 247
-
-
 import requests
 import json
 import time
@@ -23,8 +20,6 @@ def voice_gender(gender):
     if(gender == 1): 
         return "en-US-DavisNeural"
     if(gender == 2): 
-        return "en-US-BlueNeural"
-    if(gender == 3): 
         return "en-US-AriaNeural"
     
 def voice_style(style):
@@ -44,7 +39,7 @@ def voice_style(style):
 # **************************************** #
 def save_image():
     
-    image_path = "C:/Users/InbalAmram/Desktop/image.jpeg"
+    image_path = "C:/Users/InbalAmram/Documents/GitHub/D-iD/image.jpeg"
     return image_path
 
 def download_video(url, save_path, vidDone):
@@ -57,7 +52,7 @@ def download_video(url, save_path, vidDone):
             
             vidDone += 1
             print(f"Video Done {vidDone} ")
-            # runOpenframeworks(vidDone)
+            runOpenframeworks(vidDone)
 
     else:
         print(f"Failed to download video. Status code: {response.status_code}")
@@ -85,7 +80,6 @@ def get_requests(string):
     }
 
     response = requests.get(url, headers=headers)
-    # print(response.text)
 
     if response.status_code == 200:
         data = response.json()
@@ -160,7 +154,6 @@ def post_requests_mAndf(text, image_url, gender, style, save_path, vidDone):
 
     if response.status_code == 201:
         data = response.json()
-        # print (data["id"])
         string = data["id"]
 
         # Wait for the image uploading to the platform
@@ -186,13 +179,13 @@ def gender_generation(address, *args):
 
         image_url = upload_image()
         post_requests_mAndf("Hello nice to meet you!", image_url, gender, style, save_path_0, vidDone)
-        # post_requests_mAndf("Who are you",             image_url, gender, style, save_path_1, vidDone)
+        post_requests_mAndf("Who are you? Whats ur name", image_url, gender, style, save_path_1, vidDone)
 
 
 def runOpenframeworks(vidDone):
     app_path = "/Users/zhichengu/Desktop/Gui_playVidDebug.app"
 
-    if vidDone == 1:
+    if vidDone == 2:
         subprocess.Popen(["open", app_path])
 
 # **************************************** #
