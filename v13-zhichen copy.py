@@ -219,7 +219,7 @@ def gender_generation(address, *args):
     generation = args[0]
     gender     = args[1]
     style      = args[2]
-    if generation == 1  and gender != 2:
+    if generation == 1  and gender != 3:
 
         global vidDone
         vidDone = 0
@@ -232,8 +232,8 @@ def gender_generation(address, *args):
         # post_requests_mAndf("Who are you",             image_url, gender, style, save_path_1, vidDone)
         
     
-    if generation == 1  and gender == 2:
-        None
+    # if generation == 1  and gender == 3:
+    #     None
         
         # can not be used caz lack of the library   
 

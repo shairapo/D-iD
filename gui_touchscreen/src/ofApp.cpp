@@ -9,8 +9,8 @@ void ofApp::setup() {
     int buttonGap = 50;     // Gap between buttons
     
     // Create the three large buttons in a horizontal array with a gap between them
-    for (int i = 0; i < 3; i++) {
-        int x = ofGetWidth() / 2 - (buttonWidth * 3 + buttonGap * 2) / 2 + i * (buttonWidth + buttonGap);
+    for (int i = 0; i < 2; i++) {
+        int x = ofGetWidth() / 2 - (buttonWidth * 2 + buttonGap * 1) / 2 + i * (buttonWidth + buttonGap);
         int y = ofGetHeight() / 2 - buttonHeight / 2;
         ofRectangle buttonRect(x, y + 105, buttonWidth, buttonHeight);
         buttons.push_back(buttonRect);
@@ -32,8 +32,8 @@ void ofApp::setup() {
     
     // Assign names to large buttons
     buttonNames.push_back("Male");
-    buttonNames.push_back("None-Binary");
     buttonNames.push_back("Female");
+//    buttonNames.push_back("Female");
     
     // Assign names to small buttons
     smallButtonNames.push_back("Friendly");
@@ -78,12 +78,23 @@ void ofApp::update() {
     if(geneButtonEnabled == false) geneDataSend = 0;
     
     if(geneDataSend) {
-        geneButtonEnabled = false;
+        geneButtonEnabled     = false;
+        buttonClicked[0]      = false;
+        buttonClicked[1]      = false;
+        buttonClicked[2]      = false;
+        smallButtonClicked[0] = false;
+        smallButtonClicked[1] = false;
+        smallButtonClicked[2] = false;
+        smallButtonClicked[3] = false;
+        smallButtonClicked[4] = false;
+        webcamButtonEnabled   = false;
     }
     
     ofxOscMessage m;
     m.setAddress("/generation");
     m.addIntArg(geneDataSend);
+    m.addIntArg(bigChoice);
+    m.addIntArg(smallChoice);
     sender.sendMessage(m, false);
 }
 
@@ -119,10 +130,7 @@ void ofApp::draw() {
             ofSetColor(255);
             ofDrawBitmapString("Clicked", buttons[i].getX() + 10, buttons[i].getY() + 70);
             
-            ofxOscMessage m;
-            m.setAddress("/gender");
-            m.addIntArg(i + 1);
-            sender.sendMessage(m, false);
+            bigChoice = i + 1;
         }
         else {
             ofSetColor(255);
@@ -135,10 +143,7 @@ void ofApp::draw() {
             ofSetColor(255);
             ofDrawBitmapString("Clicked", smallButtons[i].getX() + 5, smallButtons[i].getY() + 55);
             
-            ofxOscMessage m;
-            m.setAddress("/style");
-            m.addIntArg(i + 1);
-            sender.sendMessage(m, false);
+            smallChoice = i + 1;
         }
         else {
             ofSetColor(255);
@@ -181,12 +186,6 @@ void ofApp::draw() {
         ofDrawRectRounded(geneButton, 3);
         ofSetColor(255);
         ofDrawBitmapString("Generation", geneButton.getX() + 7, geneButton.getY() + 32);
-    } else {
-        // If the "Generation" button is not enabled, you can display it in a disabled state
-        //        ofSetColor(100); // Change the color to gray or another disabled color
-        //        ofDrawRectRounded(geneButton, 3);
-        //        ofSetColor(150); // Change the text color to a lighter gray
-        //        ofDrawBitmapString("Generation", geneButton.getX() + 7, geneButton.getY() + 32);
     }
 }
 

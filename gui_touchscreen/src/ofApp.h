@@ -43,4 +43,6 @@ public:
     void keyPressed(int key);
     
     ofxOscSender sender;
+    
+    int bigChoice, smallChoice;
 };
