@@ -15,7 +15,8 @@ void ofApp::setup() {
 		cout << "Device ID: " << device.id << ", Name: " << device.deviceName << endl;
 	}
 
-	sender.setup("192.168.1.65", 8000);
+	senderMini.setup("192.168.1.188", 1337);
+	senderHP.setup("192.168.1.72",9999 );
 
 }
 
@@ -124,46 +125,60 @@ void ofApp::draw() {
 		}
 		//cout << "sumVal:" << sumVal << endl;
 
-		if (frameCount > 50) {
+		if (frameCount > 150) {
 			frameCount = 0;
-			ofxOscBundle bundle;
-			ofxOscMessage val;
-			ofxOscMessage tag;
-			val.setAddress("/speed");
-			val.addIntArg(sumVal);
-			bundle.addMessage(val);
+			ofxOscBundle bundleMini;
+			ofxOscMessage tagMini;
 
-			cout << "sumVal:" << sumVal << endl;
+			ofxOscBundle bundleHP;
+			ofxOscMessage tagHP;
+
+			/*cout << "sumVal:" << sumVal << endl;*/
 		
-			if (sumVal >= 800 && sumVal <= 4500) {
-				cout << "Slow" << endl;
+
+			if (sumVal >= 3000 && sumVal <= 14000) {
 				ofSetBackgroundColor(0, 255, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('S');
-				bundle.addMessage(tag);
+				index = ofRandom(3); 
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
 
 			}
-			else if (sumVal >= 7000 && sumVal <= 20000) {
-				cout << "Medium" << endl;
-				ofSetBackgroundColor(255, 255, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('M');
-				bundle.addMessage(tag);
-			}
-			else if (sumVal >= 26000) {
-				cout << "Fast" << endl;
+			else if (sumVal >= 30000) {
 				ofSetBackgroundColor(255, 0, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('H');
-				bundle.addMessage(tag);
+				index = ofRandom(3, 7);
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
 			}
+			else if (sumVal <= 1400) {
+				ofSetBackgroundColor(0, 255, 255);
+				index = ofRandom(7, 10);
+				tagMini.setAddress("/mini");
+				tagMini.addIntArg(index);
+				bundleMini.addMessage(tagMini);
+
+				tagHP.setAddress("/data");
+				tagHP.addIntArg(index);
+				bundleHP.addMessage(tagHP);
+			}
+
 			else {
-				ofSetBackgroundColor(0, 0, 0);
-				tag.setAddress("/tag");
-				tag.addCharArg('n');
-				bundle.addMessage(tag);
+				ofSetBackgroundColor(0);
 			}
-			sender.sendBundle(bundle);
+			
+			
+			
+			senderMini.sendBundle(bundleMini);
+			senderHP.sendBundle(bundleHP);
 		}
 
 		sumVal = 0;
