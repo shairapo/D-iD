@@ -141,7 +141,6 @@ void ofApp::draw() {
 				tag.setAddress("/tag");
 				tag.addCharArg('S');
 				bundle.addMessage(tag);
-
 			}
 			else if (sumVal >= 7000 && sumVal <= 20000) {
 				cout << "Medium" << endl;
