@@ -184,7 +184,7 @@ def gender_generation(address, *args):
         image_url = upload_image()
 
         # stand
-        # post_requests_mAndf("Hello nice to meet you!", image_url, gender, style, save_path_0, vidDone)
+        # post_requests_mAndf("Oh, look, it’s Google’s “Memories Together”! Great photos. What an awesome vacation it was. We haven’t booked one for more than six months. We see a hotel rated ‘superb’ 9.2 by 752 reviewers, 200 yards from the beach. No breakfast included. Lowest price in 30 days. Booked! Congratulations! Confetti ball!", image_url, gender, style, save_path_0, vidDone)
         # post_requests_mAndf("i am all good. have a good night", image_url, gender, style, save_path_1, vidDone)
         # # post_requests_mAndf("look, its Googles Memories Together! What an awesome vacation it was. We havent booked one for more than six months. We see a hotel rated superb 9 point 2 by 752 reviewers, 200 yards from the beach, No breakfast, Lowest price in 30 days. Booked! Congratulations! Confetti ball!", image_url, gender, style, save_path_0, vidDone)
         # post_requests_mAndf("Hurray! It’s our best 10-second meditation! We have earned 1,250 coins. It's time for a walk. We should try to reach our daily step count. Start walking.", image_url, gender, style, save_path_2, vidDone)

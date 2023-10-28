@@ -181,15 +181,15 @@ def gender_generation(address, *args):
         image_url = upload_image()
 
         # stand
-        post_requests_mAndf("Hello nice to meet you!", image_url, gender, style, save_path_0, vidDone)
+        post_requests_mAndf("Hurray! It’s our best 10-second meditation! We have earned 1,250 coins. It's time for a walk. We should try to reach our daily step count. Start walking.", image_url, gender, style, save_path_0, vidDone)
         vidDone += 1
         print(f"Video Done {vidDone} ")
 
-        post_requests_mAndf("i am all good. have a good night", image_url, gender, style, save_path_1, vidDone)
+        post_requests_mAndf("Please don't stand still; it's not good for our digestion. We love walking.", image_url, gender, style, save_path_1, vidDone)
         vidDone += 1
         print(f"Video Done {vidDone} ")
         
-        post_requests_mAndf("Hurray! It’s our best 10-second meditation! We have earned 1,250 coins. It's time for a walk. We should try to reach our daily step count. Start walking.", image_url, gender, style, save_path_2, vidDone)
+        post_requests_mAndf("Don’t forget to take our happy pills!", image_url, gender, style, save_path_2, vidDone)
         vidDone += 1
         print(f"Video Done {vidDone} ")
         
@@ -206,7 +206,7 @@ def gender_generation(address, *args):
         vidDone += 1
         print(f"Video Done {vidDone} ")
 
-        post_requests_mAndf("Our third favourite cousin started a new job at Tesla. Would we like to congratulate them? We’re so fucking proud of them and green with envy. Clap your hands.", image_url, gender, style, save_path_6, vidDone)
+        post_requests_mAndf("We are the second-best visitor today! We are rated 4.7! Confetti! Red heart! Clapping hands!", image_url, gender, style, save_path_6, vidDone)
         vidDone += 1
         print(f"Video Done {vidDone} ")
 

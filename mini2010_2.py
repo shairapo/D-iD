@@ -39,18 +39,9 @@ def play_vid(animation_path, delay=30):
 def default_handler(address, *args):
     if args:
             received_value = args[0]
-            # print(f"received: {received_value}")
-            # print(f"received: {address}: {args}")
-            # print(f"received: {args}")
-            if (received_value==1):
-                print('video 1 is playing')
-                #   animation_path='videos-shai/' + str(received_value) + '.mp4'
-                animation_path='animations/booking.mp4'
-                play_vid(animation_path)
-                playback_finished_event.wait()
-            # elif (received_value==2):
-            #       print('video 2 is playing')
-        
+            animation_path='animations/' + str(received_value) + '.mp4'
+            play_vid(animation_path)
+            playback_finished_event.wait()        
 
 playback_finished_event = threading.Event()
 
